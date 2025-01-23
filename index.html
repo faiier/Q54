@@ -45,11 +45,11 @@
     ar
     interaction-prompt="none">
     
-    <!-- Hotspot 1 -->
-    <button slot="hotspot-1" id="hotspot1" class="hotspot" style="transform: translate(-50%, -50%); left: 30%; top: 50%;" onclick="showMessage('This is hotspot 1')"></button>
+    <!-- Hotspot 1 (Correct Point) -->
+    <button slot="hotspot-1" id="hotspot1" class="hotspot" style="transform: translate(-50%, -50%); left: 30%; top: 50%;" onclick="checkAnswer(true)"></button>
 
-    <!-- Hotspot 2 -->
-    <button slot="hotspot-2" id="hotspot2" class="hotspot" style="transform: translate(-50%, -50%); left: 60%; top: 70%;" onclick="showMessage('This is hotspot 2')"></button>
+    <!-- Hotspot 2 (Incorrect Point) -->
+    <button slot="hotspot-2" id="hotspot2" class="hotspot" style="transform: translate(-50%, -50%); left: 60%; top: 70%;" onclick="checkAnswer(false)"></button>
 
   </model-viewer>
 
@@ -60,13 +60,22 @@
   </div>
 
   <script>
-    // Function to show message when a hotspot is clicked
-    function showMessage(message) {
-      document.getElementById('messageText').innerText = message;
-      document.getElementById('messageContainer').style.display = 'block';
+    // Function to check if the clicked hotspot is correct
+    function checkAnswer(isCorrect) {
+      const messageContainer = document.getElementById('messageContainer');
+      const messageText = document.getElementById('messageText');
+      
+      if (isCorrect) {
+        messageText.innerText = 'ถูกต้อง!';
+      } else {
+        messageText.innerText = 'ลองใหม่';
+      }
+      
+      // Display the message container
+      messageContainer.style.display = 'block';
     }
 
-    // Function to close the message
+    // Function to close the message container
     function closeMessage() {
       document.getElementById('messageContainer').style.display = 'none';
     }
