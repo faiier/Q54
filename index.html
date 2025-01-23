@@ -13,7 +13,9 @@
   <!-- ใช้ type="module" สำหรับไฟล์ script -->
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
-    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js';
+
+    // โหลด GLTFLoader จาก CDN ที่รองรับ ES Modules
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/jsm/loaders/GLTFLoader.js';
 
     // สร้างฉาก 3D
     const scene = new THREE.Scene();
