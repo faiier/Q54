@@ -10,9 +10,11 @@
   </style>
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script>
+  <!-- ใช้ type="module" สำหรับไฟล์ script -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js';
+
     // สร้างฉาก 3D
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -21,7 +23,7 @@
     document.body.appendChild(renderer.domElement);
 
     // โหลดโมเดล 3D
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
     loader.load(
       'wheel2 9-2.glb', // ระบุเส้นทางของไฟล์โมเดล
       (gltf) => {
