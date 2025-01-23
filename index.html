@@ -3,52 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>โมเดล 3D</title>
+  <title>Google Model Viewer</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    body { margin: 0; }
-    canvas { display: block; }
+    body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0;}
+    model-viewer {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
-  <!-- ใช้ type="module" สำหรับไฟล์ script -->
-  <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
-
-    // โหลด GLTFLoader จาก CDN ที่รองรับ ES Modules
-    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/jsm/loaders/GLTFLoader.js';
-
-    // สร้างฉาก 3D
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // โหลดโมเดล 3D
-    const loader = new GLTFLoader();
-    loader.load(
-      'wheel2 9-2.glb', // ระบุเส้นทางของไฟล์โมเดล
-      (gltf) => {
-        const model = gltf.scene;
-        scene.add(model);
-        model.position.set(0, 0, 0);
-        model.rotation.set(0, 0, 0);
-
-        function animate() {
-          requestAnimationFrame(animate);
-          model.rotation.y += 0.01;
-          renderer.render(scene, camera);
-        }
-        animate();
-      },
-      undefined,
-      (error) => {
-        console.error('เกิดข้อผิดพลาดในการโหลดโมเดล:', error);
-      }
-    );
-
-    // กำหนดมุมมองของกล้อง
-    camera.position.z = 5;
-  </script>
+  <model-viewer 
+    src="wheel2 9-2.glb" 
+    alt="A 3D model"
+    camera-controls 
+    auto-rotate 
+    ar>
+  </model-viewer>
 </body>
 </html>
