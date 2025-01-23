@@ -3,60 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Model Viewer with Interaction</title>
+  <title>Interactive 3D Model with Clickable Points</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0;}
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      flex-direction: column;
+    }
     model-viewer {
       width: 80%;
       height: 80%;
     }
-    .question-box {
+    .message-container {
       display: none;
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background-color: white;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 10;
     }
   </style>
 </head>
 <body>
+
+  <!-- 3D Model with Hotspots -->
   <model-viewer 
-    id="model-viewer"
+    id="modelViewer"
     src="wheel2 9-2.glb" 
     alt="A 3D model"
     camera-controls 
     auto-rotate 
-    ar>
+    ar
+    interaction-prompt="none">
+    
+    <!-- Hotspot 1 -->
+    <button slot="hotspot-1" id="hotspot1" class="hotspot" style="transform: translate(-50%, -50%); left: 30%; top: 50%;" onclick="showMessage('This is hotspot 1')"></button>
+
+    <!-- Hotspot 2 -->
+    <button slot="hotspot-2" id="hotspot2" class="hotspot" style="transform: translate(-50%, -50%); left: 60%; top: 70%;" onclick="showMessage('This is hotspot 2')"></button>
+
   </model-viewer>
 
-  <div id="question-box" class="question-box">
-    <p>คำถาม: โมเดลนี้คืออะไร?</p>
-    <input type="text" id="user-answer" placeholder="พิมพ์คำตอบของคุณ...">
-    <button onclick="checkAnswer()">ตอบ</button>
+  <!-- Message Container -->
+  <div class="message-container" id="messageContainer">
+    <p id="messageText"></p>
+    <button onclick="closeMessage()">Close</button>
   </div>
 
   <script>
-    // ฟังก์ชันเมื่อคลิกที่โมเดล
-    document.getElementById('model-viewer').addEventListener('click', function() {
-      // แสดงกล่องคำถาม
-      document.getElementById('question-box').style.display = 'block';
-    });
+    // Function to show message when a hotspot is clicked
+    function showMessage(message) {
+      document.getElementById('messageText').innerText = message;
+      document.getElementById('messageContainer').style.display = 'block';
+    }
 
-    // ฟังก์ชันตรวจสอบคำตอบ
-    function checkAnswer() {
-      const answer = document.getElementById('user-answer').value.toLowerCase();
-      const correctAnswer = "wheel";  // คำตอบที่ถูกต้อง
-      const feedback = answer === correctAnswer ? "คำตอบถูกต้อง!" : "คำตอบไม่ถูกต้อง!";
-      
-      // แสดงผลลัพธ์
-      alert(feedback);
-
-      // ซ่อนกล่องคำถาม
-      document.getElementById('question-box').style.display = 'none';
+    // Function to close the message
+    function closeMessage() {
+      document.getElementById('messageContainer').style.display = 'none';
     }
   </script>
+
 </body>
 </html>
-
