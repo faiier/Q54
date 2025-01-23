@@ -3,83 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive 3D Model with Clickable Points</title>
+  <title>Google Model Viewer</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-      flex-direction: column;
-    }
+    body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0;}
     model-viewer {
-      width: 80%;
-      height: 80%;
-    }
-    .message-container {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 10;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-
-  <!-- 3D Model with Hotspots -->
   <model-viewer 
-    id="modelViewer"
     src="wheel2 9-2.glb" 
     alt="A 3D model"
     camera-controls 
     auto-rotate 
-    ar
-    interaction-prompt="none">
-    
-    <!-- Hotspot 1 (Correct Point) -->
-    <button slot="hotspot-1" id="hotspot1" class="hotspot" style="transform: translate(-50%, -50%); left: 30%; top: 50%;" onclick="checkAnswer(true)"></button>
-
-    <!-- Hotspot 2 (Incorrect Point) -->
-    <button slot="hotspot-2" id="hotspot2" class="hotspot" style="transform: translate(-50%, -50%); left: 60%; top: 70%;" onclick="checkAnswer(false)"></button>
-
+    ar>
   </model-viewer>
-
-  <!-- Message Container -->
-  <div class="message-container" id="messageContainer">
-    <p id="messageText"></p>
-    <button onclick="closeMessage()">Close</button>
-  </div>
-
-  <script>
-    // Function to check if the clicked hotspot is correct
-    function checkAnswer(isCorrect) {
-      const messageContainer = document.getElementById('messageContainer');
-      const messageText = document.getElementById('messageText');
-      
-      if (isCorrect) {
-        messageText.innerText = 'ถูกต้อง!';
-      } else {
-        messageText.innerText = 'ตอบผิด ลองใหม่!';
-      }
-      
-      // Display the message container
-      messageContainer.style.display = 'block';
-    }
-
-    // Function to close the message container
-    function closeMessage() {
-      document.getElementById('messageContainer').style.display = 'none';
-    }
-  </script>
-
 </body>
 </html>
